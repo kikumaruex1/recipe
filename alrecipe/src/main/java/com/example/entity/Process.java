@@ -45,7 +45,7 @@ public class Process {
 	}
 
 	public String getImage() {
-		return image;
+		return  "/process-images/" + id + "/" + image;
 	}
 
 	public void setImage(String image) {
