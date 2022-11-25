@@ -20,19 +20,19 @@ public class RecipeService
 	}
 
 	/**
-     * ブランド情報全件取得
+     * レシピ情報全件取得
      *
-     * @return ブランド情報のリスト
+     * @return レシピ情報のリスト
      */
     public List<Recipe> listAll() {
         return recipeRepository.findAll();
     }
 
     /**
-     * ブランド情報検索処理
+     * レシピ情報検索処理
      *
      * @param keyword 検索キーワード
-     * @return ブランド情報のリスト
+     * @return レシピ情報のリスト
      */
     public List<Recipe> listAll(String keyword) {
         // 検索キーワードがあった場合
@@ -46,31 +46,12 @@ public class RecipeService
     }
 
     /**
-     * IDに紐づくブランド情報取得処理
+     * IDに紐づくレシピ情報取得処理
      *
-     * @param id ブランドID
-     * @return ブランド情報
+     * @param id レシピID
+     * @return レシピ情報
      */
     public Recipe get(Long id) {
         return recipeRepository.findById(id).get();
-    }
-
-    /**
-     * ブランド情報登録処理
-     *
-     * @param recipe 保存したいブランド情報
-     * @return 保存したブランド情報
-     */
-    public Recipe save(Recipe recipe) {
-        return recipeRepository.save(recipe);
-    }
-
-    /**
-     * IDに紐づくブランド情報削除処理
-     *
-     * @param id ブランドID
-     */
-    public void delete(Long id) {
-        recipeRepository.deleteById(id);
     }
 }
