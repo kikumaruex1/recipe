@@ -93,11 +93,11 @@ public class RecipeController {
 		model.addAttribute("listSubcategories", listSubcategories);
 
 		//手順IDのレシピIDに紐づけて手順情報を取得
-		Process process = processService.get(id);
-		if(process.equals(recipe)) {
+		//Process process = processService.get(id);
+		//if(process.equals(recipe)) {
 			List<Process> listProcesses = processService.listAll();
 			model.addAttribute("listProcesses", listProcesses);
-		}
+		//}
 		//レシピ詳細ページに遷移
 		return "recipes/recipe_detail";
 	}
