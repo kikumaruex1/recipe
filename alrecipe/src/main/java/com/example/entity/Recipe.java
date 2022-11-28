@@ -1,11 +1,17 @@
 package com.example.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,7 +49,7 @@ public class Recipe {
 
 	@ManyToOne
     @JoinColumn(name = "SUBCATEGORY_ID")
-    private Subcategory	 subcategory;
+    private Subcategory subcategory;
 
 	@ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
@@ -52,6 +58,14 @@ public class Recipe {
 	@ManyToOne
     @JoinColumn(name = "ALCOHOL_ID")
     private Alcohol alcohol;
+
+//	@ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "RECIPES_SUBCATEGORIES",
+//            joinColumns = @JoinColumn(name = "RECIPE_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "SUBCATEGORY_ID")
+//            )
+//    private Set<Subcategory> subcategories = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -133,8 +147,26 @@ public class Recipe {
 		this.alcohol = alcohol;
 	}
 
-
-
+//	public Set<Subcategory> getSubcategories() {
+//        return subcategories;
+//    }
+//
+//    public void setSubcategories(Set<Subcategory> subcategories) {
+//        this.subcategories = subcategories;
+//    }
+//
+//    public void addSubcategory(Subcategory subcategory) {
+//        this.subcategories.add(subcategory);
+//    }
+//
+//    public boolean hasSubcategoriy(String subcategoryName) {
+//        for (Subcategory subcategory : subcategories) {
+//            if (subcategory.getName().equals(subcategoryName)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
 }

@@ -11,18 +11,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.alcohol.AlcoholService;
+import com.example.category.CategoryService;
+import com.example.entity.Alcohol;
+import com.example.entity.Category;
 import com.example.entity.Recipe;
+import com.example.entity.Subcategory;
+import com.example.entity.Process;
+import com.example.subcategory.SubcategoryService;
 
 @Controller
 @RequestMapping("/recipes")
 public class RecipeController {
 
+	private final AlcoholService alcoholService;
+
+    private final SubcategoryService subcategoryService;
+
+    private final CategoryService categoryService;
+
+    private final ProcessService processService;
+
 	private final RecipeService recipeService;
 
 
 	@Autowired
-	public RecipeController(RecipeService recipeService)
+	public RecipeController(
+			AlcoholService alcoholService,
+			SubcategoryService subcategoryService,
+			CategoryService categoryService,
+			ProcessService processService,
+			RecipeService recipeService)
 	{
+		this.alcoholService = alcoholService;
+		this.subcategoryService = subcategoryService;
+		this.categoryService = categoryService;
+		this.processService = processService;
 		this.recipeService = recipeService;
 	}
 
@@ -54,10 +78,27 @@ public class RecipeController {
 	@GetMapping("/detail/{id}")
 	public String detailRecipe(@PathVariable(name = "id") Long id ,Model model)
 	{
-		//カテゴリーIDに紐づけてカテゴリー情報を取得
+		//レシピIDに紐づけてレシピ情報を取得
 		Recipe recipe = recipeService.get(id);
+
 		model.addAttribute("recipe",recipe);
-		//カテゴリー詳細ページに遷移
+
+		//カテゴリー＋サブカテゴリー＋アルコール情報も取得
+		List<Alcohol> listAlcohols = alcoholService.listAll();
+		List<Category> listCategories = categoryService.listAll();
+		List<Subcategory> listSubcategories = subcategoryService.listAll();
+
+		model.addAttribute("listAlcohols", listAlcohols);
+		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("listSubcategories", listSubcategories);
+
+		//手順IDのレシピIDに紐づけて手順情報を取得
+		Process process = processService.get(id);
+		if(process.equals(recipe)) {
+			List<Process> listProcesses = processService.listAll();
+			model.addAttribute("listProcesses", listProcesses);
+		}
+		//レシピ詳細ページに遷移
 		return "recipes/recipe_detail";
 	}
 
