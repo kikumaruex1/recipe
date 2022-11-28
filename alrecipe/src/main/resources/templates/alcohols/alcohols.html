@@ -5,9 +5,8 @@
   th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}"
 >
 <head>
-<meta charset="UTF-8">
-<title>レシピ一覧</title>
-<link />
+  <title>アルコール一覧</title>
+  <link />
 </head>
 <body>
   <div class="pcoded-content">
@@ -17,7 +16,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="mt-2">レシピ一覧</h2>
+              <h2 class="mt-2">アルコール一覧一覧</h2>
             </div>
           </div>
         </div>
@@ -40,7 +39,7 @@
                     <h4>検索条件</h4>
                   </div>
                   <div class="card-block">
-                    <form th:action="@{/recipes}" method="get">
+                    <form th:action="@{/alcohols}" method="get">
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <div class="">
@@ -53,7 +52,7 @@
                           <button class="btn btn-primary waves-effect waves-light">検索</button>
                         </div>
                         <div class="m-2">
-                          <a class="btn btn-secondary waves-effect waves-light"  th:href="@{/recipes}">リセット</a>
+                          <a class="btn btn-secondary waves-effect waves-light"  th:href="@{/alcohols}">リセット</a>
                         </div>
                       </div>
                     </form>
@@ -77,14 +76,17 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr th:each ="recipe : ${listRecipes}">
-                            <th  scope="row" th:text ="${recipe.id}"></th>
-                            <td th:text ="${recipe.name}"></td>
+                          <tr th:each ="alcohol : ${listAlcohols}">
+                            <th  scope="row" th:text ="${alcohol.id}"></th>
+                            <td th:text ="${alcohol.name}"></td>
                             <td>
-                              <a class="btn btn-primary btn-sm m-1" th:href="@{/recipes/detail/{id}(id=${recipe.id})}">詳細</a>
+                              <a class="btn btn-primary btn-sm m-1" th:href="@{/alcohols/detail/{id}(id=${alcohol.id})}">詳細</a>
                             </td>
                             <td>
-                              <a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/recipes/delete/{id}(id=${recipe.id})}">削除</a>
+                              <a class="btn btn-success btn-sm m-1" th:href="@{/alcohols/edit/{id}(id=${alcohol.id})}">編集</a>
+                            </td>
+                            <td>
+                              <a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/alcohols/delete/{id}(id=${alcohol.id})}">削除</a>
                             </td>
                           </tr>
                         </tbody>
@@ -103,6 +105,5 @@
       <!-- Main-body end -->
     </div>
   </div>
-
 </body>
 </html>

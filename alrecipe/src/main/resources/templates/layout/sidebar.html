@@ -110,14 +110,41 @@
           </a>
           <ul class="pcoded-submenu">
             <li>
-              <a href="#" class="waves-effect waves-dark">
+              <a th:href="@{/subcategories}" class="waves-effect waves-dark">
                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                 <span class="pcoded-mtext">一覧</span>
                 <span class="pcoded-mcaret"></span>
               </a>
             </li>
             <li>
-              <a href="" class="waves-effect waves-dark">
+              <a th:href="@{/subcategories/new}" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">新規作成</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="pcoded-navigation-label">アルコール</div>
+      <ul class="pcoded-item pcoded-left-item">
+        <li class="pcoded-hasmenu">
+          <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+            <span class="pcoded-mtext">アルコール</span>
+            <span class="pcoded-mcaret"></span>
+          </a>
+          <ul class="pcoded-submenu">
+            <li>
+              <a th:href="@{/alcohols}" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">一覧</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/alcohols/new}" class="waves-effect waves-dark">
                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                 <span class="pcoded-mtext">新規作成</span>
                 <span class="pcoded-mcaret"></span>

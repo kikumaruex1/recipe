@@ -1,13 +1,13 @@
-package com.example.alcohol;
+package com.example.subcategory;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.entity.Alcohol;
+import com.example.entity.Subcategory;
 
-public interface AlcoholRepository extends JpaRepository<Alcohol, Long> {
+public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> {
 
 	/**
      * カテゴリー情報の件数取得
@@ -23,7 +23,7 @@ public interface AlcoholRepository extends JpaRepository<Alcohol, Long> {
      * @param name カテゴリー名
      * @return カテゴリー情報
      */
-    public Alcohol findByName(String name);
+    public Subcategory findByName(String name);
 
     /**
      * カテゴリー情報検索クエリ
@@ -31,7 +31,7 @@ public interface AlcoholRepository extends JpaRepository<Alcohol, Long> {
      * @param keyword 検索キーワード
      * @return カテゴリー情報のリスト
      */
-    @Query("SELECT c FROM Category c WHERE c.name LIKE %?1%")
-    public List<Alcohol> search(String keyword);
+    @Query("SELECT sc FROM Subcategory sc WHERE sc.name LIKE %?1%")
+    public List<Subcategory> search(String keyword);
 
 }

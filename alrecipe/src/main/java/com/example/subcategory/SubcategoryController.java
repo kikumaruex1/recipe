@@ -1,4 +1,4 @@
-package com.example.category;
+package com.example.subcategory;
 
 import java.util.List;
 
@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.entity.Category;
+import com.example.entity.Subcategory;
 
 @Controller
-@RequestMapping("/categories")
-public class CategoryController {
+@RequestMapping("subcategories")
+public class SubcategoryController {
 
-    private final CategoryService categoryService;
+	private final SubcategoryService subcategoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public SubcategoryController(SubcategoryService subcategoryService) {
+        this.subcategoryService = subcategoryService;
     }
 
     /**
-     * カテゴリー一覧画面表示
+     * サブカテゴリー一覧画面表示
      *
      * @param model
-     * @return カテゴリー一覧画面
+     * @return サブカテゴリー一覧画面
      */
     @GetMapping
-    public String listCategories(@RequestParam(required = false) String keyword, Model model) {
+    public String listSubcategories(@RequestParam(required = false) String keyword, Model model) {
         // 全カテゴリー情報の取得
-        List<Category> listCategories = categoryService.listAll(keyword);
-        model.addAttribute("listCategories", listCategories);
+        List<Subcategory> listSubcategories = subcategoryService.listAll(keyword);
+        model.addAttribute("listSubcategories", listSubcategories);
         model.addAttribute("keyword", keyword);
-        return "categories/categories";
+        return "subcategories/subcategories";
     }
 
     /**
@@ -48,28 +48,28 @@ public class CategoryController {
      * @return カテゴリー新規登録画面
      */
     @GetMapping("/new")
-    public String newCategory(Model model) {
+    public String newSubcategory(Model model) {
         // 新規登録用に、空のカテゴリー情報作成
-        Category category = new Category();
-        model.addAttribute("category", category);
-        return "categories/category_form";
+        Subcategory subCategory = new Subcategory();
+        model.addAttribute("subCategory", subCategory);
+        return "subcategories/category_form";
     }
 
     /**
      * カテゴリー登録・更新処理
      *
-     * @param category カテゴリー情報
+     * @param subCategory カテゴリー情報
      * @param ra
      * @return カテゴリー一覧画面
      */
     @PostMapping("/save")
-    public String saveCategory(Category category, RedirectAttributes ra) {
+    public String saveSubcategory(Subcategory subCategory, RedirectAttributes ra) {
 
         // カテゴリー情報の登録
-        categoryService.save(category);
+        subcategoryService.save(subCategory);
         // 登録成功のメッセージを格納
         ra.addFlashAttribute("success_message", "登録に成功しました");
-        return "redirect:/categories";
+        return "redirect:/subcategories";
     }
 
     /**
@@ -81,15 +81,15 @@ public class CategoryController {
      * @return カテゴリー詳細画面
      */
     @GetMapping("/detail/{id}")
-    public String detailCategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
+    public String detailSubcategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
         try {
             // カテゴリーIDに紐づくカテゴリー情報取得
-            Category category = categoryService.get(id);
-            model.addAttribute("category", category);
-            return "categories/category_detail";
+            Subcategory subCategory = subcategoryService.get(id);
+            model.addAttribute("subCategory", subCategory);
+            return "subcategories/subcategory_detail";
         } catch (NotFoundException e) {
             ra.addFlashAttribute("error_message", "対象のデータが見つかりませんでした");
-            return "redirect:/categories";
+            return "redirect:/subcategories";
         }
     }
 
@@ -102,15 +102,15 @@ public class CategoryController {
      * @return カテゴリー編集画面
      */
     @GetMapping("/edit/{id}")
-    public String editCategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
+    public String editSubcategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
         try {
             // カテゴリーIDに紐づくカテゴリー情報取得
-            Category category = categoryService.get(id);
-            model.addAttribute("category", category);
-            return "categories/category_edit";
+            Subcategory subCategory = subcategoryService.get(id);
+            model.addAttribute("subCategory", subCategory);
+            return "subcategories/subcategory_edit";
         } catch (NotFoundException e) {
             ra.addFlashAttribute("error_message", "対象のデータが見つかりませんでした");
-            return "redirect:/categories";
+            return "redirect:/subcategories";
         }
     }
 
@@ -123,15 +123,15 @@ public class CategoryController {
      * @return カテゴリー一覧画面
      */
     @GetMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
+    public String deleteSubcategory(@PathVariable(name = "id") Long id, Model model, RedirectAttributes ra) {
         // カテゴリー情報削除
         try {
-            categoryService.delete(id);
+            subcategoryService.delete(id);
             ra.addFlashAttribute("success_message", "削除に成功しました");
         } catch (NotFoundException e) {
             ra.addFlashAttribute("error_message", "対象のデータが見つかりませんでした");
         }
-        return "redirect:/categories";
+        return "redirect:/subcategories";
     }
 
 }

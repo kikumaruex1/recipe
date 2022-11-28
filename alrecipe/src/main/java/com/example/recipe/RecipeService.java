@@ -54,4 +54,14 @@ public class RecipeService
     public Recipe get(Long id) {
         return recipeRepository.findById(id).get();
     }
+
+    /**
+     * IDに紐づくレシピ情報取得処理
+     *
+     * @param id レシピID
+     * @return レシピ情報
+     */
+    public void delete(Long id) {
+    	recipeRepository.deleteById(id);
+	}
 }

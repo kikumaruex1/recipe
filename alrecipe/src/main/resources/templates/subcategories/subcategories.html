@@ -5,7 +5,7 @@
   th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}"
 >
 <head>
-  <title>ブランド一覧</title>
+  <title>サブカテゴリー一覧</title>
   <link />
 </head>
 <body>
@@ -16,7 +16,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="mt-2">ブランド一覧</h2>
+              <h2 class="mt-2">サブカテゴリー一覧</h2>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
                     <h4>検索条件</h4>
                   </div>
                   <div class="card-block">
-                    <form th:action="@{/brands}" method="get">
+                    <form th:action="@{/subcategories}" method="get">
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <div class="">
@@ -52,7 +52,7 @@
                           <button class="btn btn-primary waves-effect waves-light">検索</button>
                         </div>
                         <div class="m-2">
-                          <a class="btn btn-secondary waves-effect waves-light" th:href="@{/brands}">リセット</a>
+                          <a class="btn btn-secondary waves-effect waves-light" th:href="@{/subcategories}">リセット</a>
                         </div>
                       </div>
                     </form>
@@ -76,17 +76,17 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr th:each="brand : ${listBrands}">
-                            <th scope="row" th:text="${brand.id}"></th>
-                            <td th:text="${brand.name}"></td>
+                          <tr th:each="subcategory : ${listSubcategories}">
+                            <th scope="row" th:text="${subcategory.id}"></th>
+                            <td th:text="${subcategory.name}"></td>
                             <td>
-                              <a class="btn btn-primary btn-sm m-1" th:href="@{/brands/detail/{id}(id=${brand.id})}">詳細</a>
+                              <a class="btn btn-primary btn-sm m-1" th:href="@{/subcategories/detail/{id}(id=${subcategory.id})}">詳細</a>
                             </td>
                             <td>
-                              <a class="btn btn-success btn-sm m-1" th:href="@{/brands/edit/{id}(id=${brand.id})}">編集</a>
+                              <a class="btn btn-success btn-sm m-1" th:href="@{/subcategories/edit/{id}(id=${subcategory.id})}">編集</a>
                             </td>
                             <td>
-                              <a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/brands/delete/{id}(id=${brand.id})}">削除</a>
+                              <a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/subcategories/delete/{id}(id=${subcategory.id})}">削除</a>
                             </td>
                           </tr>
                         </tbody>

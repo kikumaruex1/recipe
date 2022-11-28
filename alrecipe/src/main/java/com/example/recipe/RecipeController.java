@@ -19,6 +19,7 @@ public class RecipeController {
 
 	private final RecipeService recipeService;
 
+
 	@Autowired
 	public RecipeController(RecipeService recipeService)
 	{
@@ -41,5 +42,43 @@ public class RecipeController {
 		// 取得したレシピ情報を画面に渡す
 		return "recipes/recipes";
 	}
+
+    /**
+     * レシピ詳細画面表示
+     *
+     * @param recipe レシピ情報
+     * @param model
+     * @return レシピ詳細画面
+     */
+
+	@GetMapping("/detail/{id}")
+	public String detailRecipe(@PathVariable(name = "id") Long id ,Model model)
+	{
+		//カテゴリーIDに紐づけてカテゴリー情報を取得
+		Recipe recipe = recipeService.get(id);
+		model.addAttribute("recipe",recipe);
+		//カテゴリー詳細ページに遷移
+		return "recipes/recipe_detail";
+	}
+
+	/**
+     * レシピ削除処理
+     *
+     * @param recipe レシピ情報
+     * @param model
+     * @return レシピ詳細画面
+     */
+	@GetMapping("delete/{id}")
+	public String deleteRecipe(@PathVariable(name = "id") Long id , Model model, RedirectAttributes ra)
+	{
+		//カテゴリー情報削除
+		recipeService.delete(id);
+		//削除成功メッセージが表示
+		ra.addFlashAttribute("success_message", "削除に成功しました");
+		return "redirect:/recipes";
+
+
+	}
+
 
 }

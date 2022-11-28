@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * カテゴリー情報
  */
 @Entity
-@Table(name = "ALCOHOL")
+@Table(name = "ALCOHOLS")
 public class Alcohol {
 
     @Id
