@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -58,6 +60,20 @@ public class Recipe {
 	@ManyToOne
     @JoinColumn(name = "ALCOHOL_ID")
     private Alcohol alcohol;
+
+	@OneToMany(mappedBy = "recipe")
+	@OrderBy("RECIPESORT_ID")
+	private Set<Process> processes = new HashSet<>();
+
+	public Set<Process> getProcesses() {
+		return processes;
+	}
+
+	public void setProcesses(Set<Process> processes) {
+		this.processes = processes;
+	}
+
+
 
 //	@ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(

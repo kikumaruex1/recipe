@@ -95,14 +95,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr th:each ="process : ${listProcesses}">
-                            <th  scope="row" th:text ="${process.id}"></th>
-                            <td th:text ="${process.process}"></td>
+                          <tr th:each ="recipe.processes : ${Process}">
+                            <th  scope="row" th:text ="${processes.id}"></th>
+                            <td th:text ="${processes.process}"></td>
                             <td>
-                              <a class="btn btn-primary btn-sm m-1" th:href="@{/recipes/edit/{id}(id=${process.id})}">詳細</a>
+                              <!--<a class="btn btn-primary btn-sm m-1" th:href="@{/recipes/edit/{id}(id=${recipe.processes.id})}">詳細</a>-->
                             </td>
                             <td>
-                              <a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/recipes/edit/{id}(id=${process.id})}">削除</a>
+                              <!--<a class="btn btn-danger btn-sm m-1 link-delete" th:href="@{/recipes/edit/{id}(id=${recipe.processes.id})}">削除</a>-->
                             </td>
                           </tr>
                         </tbody>

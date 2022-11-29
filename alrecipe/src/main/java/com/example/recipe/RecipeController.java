@@ -1,12 +1,12 @@
 package com.example.recipe;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,8 +82,10 @@ public class RecipeController {
 	{
 		//レシピIDに紐づけてレシピ情報を取得
 		Recipe recipe = recipeService.get(id);
-
 		model.addAttribute("recipe",recipe);
+
+		List<Recipe> listRecipes = recipeService.listAll();
+		model.addAttribute("listRecipes",listRecipes);
 
 		//カテゴリー＋サブカテゴリー＋アルコール情報も取得
 		List<Alcohol> listAlcohols = alcoholService.listAll();
@@ -97,11 +99,38 @@ public class RecipeController {
 		//手順IDのレシピIDに紐づけて手順情報を取得
 		//Process process = processService.get(id);
 		//if(process.equals(recipe)) {
-			List<Process> listProcesses = processService.listAll();
-			model.addAttribute("listProcesses", listProcesses);
+			//List<Process> listProcesses = processService.listAll();
+			//model.addAttribute("listProcesses", listProcesses);
 		//}
 		//レシピ詳細ページに遷移
 		return "recipes/recipe_detail";
+	}
+
+	/**
+     * レシピ新規登録画面表示
+     *
+     * @param model
+     * @return レシピ新規登録画面
+     */
+	@GetMapping("/new")
+	public String newRecipe(Model model)
+	{
+		//新規レシピ用の空の情報を作成＋手順もついでに
+		Recipe recipe = new Recipe();
+		Process process = new Process();
+
+		//カテゴリー＋サブカテゴリー＋アルコール情報も取得
+		List<Alcohol> listAlcohols = alcoholService.listAll();
+      	List<Category> listCategories = categoryService.listAll();
+      	List<Subcategory> listSubcategories = subcategoryService.listAll();
+
+      	model.addAttribute("recipe", recipe);
+      	model.addAttribute("process", process);
+      	model.addAttribute("listAlcohols", listAlcohols);
+      	model.addAttribute("listCategories", listCategories);
+      	model.addAttribute("listSubcategories", listSubcategories);
+
+      	return "recipes/recipe_form";
 	}
 
 	/**
@@ -156,7 +185,7 @@ public class RecipeController {
 	@GetMapping("delete/{id}")
 	public String deleteRecipe(@PathVariable(name = "id") Long id , Model model, RedirectAttributes ra)
 	{
-		//カテゴリー情報削除
+		//レシピ情報削除
 		recipeService.delete(id);
 		//削除成功メッセージが表示
 		ra.addFlashAttribute("success_message", "削除に成功しました");
