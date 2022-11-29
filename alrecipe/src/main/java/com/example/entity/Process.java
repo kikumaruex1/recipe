@@ -1,17 +1,11 @@
 package com.example.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,12 +29,12 @@ public class Process {
 	@Column(name = "PROCESS")
     private String process;
 
+	@Column(name = "RECIPESORT_ID")
+    private Long recipesort_id;
+
 	@ManyToOne
     @JoinColumn(name = "RECIPE_ID")
     private Recipe recipe;
-
-	@Column(name = "RECIPESORT_ID")
-    private Long recipesort_id;
 
 	public Long getId() {
 		return id;

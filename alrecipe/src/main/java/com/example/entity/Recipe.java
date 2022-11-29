@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,9 +48,9 @@ public class Recipe {
 	@Column(name = "PRICE")
     private int price;
 
-	@ManyToOne
-    @JoinColumn(name = "SUBCATEGORY_ID")
-    private Subcategory subcategory;
+//	@ManyToOne
+//    @JoinColumn(name = "SUBCATEGORY_ID")
+//    private Subcategory subcategory;
 
 	@ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
@@ -59,13 +60,18 @@ public class Recipe {
     @JoinColumn(name = "ALCOHOL_ID")
     private Alcohol alcohol;
 
-//	@ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "RECIPES_SUBCATEGORIES",
-//            joinColumns = @JoinColumn(name = "RECIPE_ID"),
-//            inverseJoinColumns = @JoinColumn(name = "SUBCATEGORY_ID")
-//            )
-//    private Set<Subcategory> subcategories = new HashSet<>();
+
+	@OneToMany(mappedBy = "recipe")
+	@OrderBy("RECIPESORT_ID")
+	private Set<Process> process = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(
+		name = "RECIPE_SUBCATEGORY",
+		joinColumns = @JoinColumn(name = "RECIPE_ID"),
+		inverseJoinColumns = @JoinColumn(name = "SUBCATEGORY_ID")
+	)
+	private Set<Subcategory> subcategories = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -123,12 +129,23 @@ public class Recipe {
 		this.price = price;
 	}
 
-	public Subcategory getSubcategory() {
-		return subcategory;
+	public Set<Subcategory> getSubcategories() {
+		return subcategories;
 	}
 
-	public void setSubcategory(Subcategory subcategory) {
-		this.subcategory = subcategory;
+	public void setSubcategory(Set<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+
+	/**
+	 * サブカテゴリーを表示形式に整形するメソッド
+	 */
+	public String getSubcategoryList() {
+		String text = "";
+		for(Subcategory  subCategory : this.subcategories) {
+			text += subCategory.getName() + ",";
+		}
+		return text;
 	}
 
 	public Category getCategory() {
@@ -145,6 +162,10 @@ public class Recipe {
 
 	public void setAlcohol(Alcohol alcohol) {
 		this.alcohol = alcohol;
+	}
+
+	public Set<Process> getProcess() {
+		return this.process;
 	}
 
 //	public Set<Subcategory> getSubcategories() {

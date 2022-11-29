@@ -15,9 +15,9 @@ import com.example.alcohol.AlcoholService;
 import com.example.category.CategoryService;
 import com.example.entity.Alcohol;
 import com.example.entity.Category;
+import com.example.entity.Process;
 import com.example.entity.Recipe;
 import com.example.entity.Subcategory;
-import com.example.entity.Process;
 import com.example.subcategory.SubcategoryService;
 
 @Controller
@@ -96,7 +96,7 @@ public class RecipeController {
 		//Process process = processService.get(id);
 		//if(process.equals(recipe)) {
 			List<Process> listProcesses = processService.listAll();
-			model.addAttribute("listProcesses", listProcesses);
+			model.addAttribute("listProcesses", recipe.getProcess());
 		//}
 		//レシピ詳細ページに遷移
 		return "recipes/recipe_detail";
