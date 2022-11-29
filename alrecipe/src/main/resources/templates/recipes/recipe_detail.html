@@ -70,6 +70,9 @@
                         <div class="ml-2">
                           <a class="btn btn-secondary waves-effect waves-light" th:href="@{/recipes}">戻る</a>
                         </div>
+                        <div class="ml-auto mr-2">
+                          <a class="btn btn-success btn-sm m-1" th:href="@{/recipes/edit/{id}(id=${recipe.id})}">編集</a>
+                        </div>
                       </div>
                     </th:block>
                   </div>

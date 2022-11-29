@@ -64,4 +64,14 @@ public class RecipeService
     public void delete(Long id) {
     	recipeRepository.deleteById(id);
 	}
+
+    /**
+     * IDに紐づくレシピ情報取得処理
+     *
+     * @param id レシピID
+     * @return レシピ情報
+     */
+    public 	Recipe save(Recipe recipe) {
+    	return recipeRepository.save(recipe);
+	}
 }
