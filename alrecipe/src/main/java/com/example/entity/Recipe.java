@@ -63,25 +63,15 @@ public class Recipe {
 
 	@OneToMany(mappedBy = "recipe")
 	@OrderBy("RECIPESORT_ID")
-	private Set<Process> processes = new HashSet<>();
+	private Set<Process> process = new HashSet<>();
 
-	public Set<Process> getProcesses() {
-		return processes;
-	}
-
-	public void setProcesses(Set<Process> processes) {
-		this.processes = processes;
-	}
-
-
-
-//	@ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "RECIPES_SUBCATEGORIES",
-//            joinColumns = @JoinColumn(name = "RECIPE_ID"),
-//            inverseJoinColumns = @JoinColumn(name = "SUBCATEGORY_ID")
-//            )
-//    private Set<Subcategory> subcategories = new HashSet<>();
+	@ManyToMany
+	@JoinTable(
+		name = "RECIPE_SUBCATEGORY",
+		joinColumns = @JoinColumn(name = "RECIPE_ID"),
+		inverseJoinColumns = @JoinColumn(name = "SUBCATEGORY_ID")
+	)
+	private Set<Subcategory> subcategories = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -138,7 +128,7 @@ public class Recipe {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
+	
 	public Subcategory getSubcategory() {
 		return subcategory;
 	}
@@ -146,6 +136,34 @@ public class Recipe {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
+
+	public void setSubcategories(Set<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+	
+
+	//////////////
+	
+
+	public Set<Subcategory> getSubcategories() {
+		return subcategories;
+	}
+
+	public void setSubcategory(Set<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+
+	/**
+	 * サブカテゴリーを表示形式に整形するメソッド
+	 */
+	public String getSubcategoryList() {
+		String text = "";
+		for(Subcategory  subCategory : this.subcategories) {
+			text += subCategory.getName() + ",";
+		}
+		return text;
+	}
+
 
 	public Category getCategory() {
 		return category;
@@ -161,6 +179,14 @@ public class Recipe {
 
 	public void setAlcohol(Alcohol alcohol) {
 		this.alcohol = alcohol;
+	}
+
+	public Set<Process> getProcess() {
+		return process;
+	}
+
+	public void setProcess(Set<Process> process) {
+		this.process = process;
 	}
 
 //	public Set<Subcategory> getSubcategories() {

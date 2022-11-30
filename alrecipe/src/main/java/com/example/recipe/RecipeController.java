@@ -84,9 +84,6 @@ public class RecipeController {
 		Recipe recipe = recipeService.get(id);
 		model.addAttribute("recipe",recipe);
 
-		List<Recipe> listRecipes = recipeService.listAll();
-		model.addAttribute("listRecipes",listRecipes);
-
 		//カテゴリー＋サブカテゴリー＋アルコール情報も取得
 		List<Alcohol> listAlcohols = alcoholService.listAll();
 		List<Category> listCategories = categoryService.listAll();
@@ -96,12 +93,9 @@ public class RecipeController {
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("listSubcategories", listSubcategories);
 
-		//手順IDのレシピIDに紐づけて手順情報を取得
-		//Process process = processService.get(id);
-		//if(process.equals(recipe)) {
-			//List<Process> listProcesses = processService.listAll();
-			//model.addAttribute("listProcesses", listProcesses);
-		//}
+		//手順IDのレシピIDに紐づけて手順情報を取得{
+		List<Process> listProcesses = processService.listAll();
+		model.addAttribute("listProcesses", recipe.getProcess());
 		//レシピ詳細ページに遷移
 		return "recipes/recipe_detail";
 	}
@@ -123,6 +117,9 @@ public class RecipeController {
 		List<Alcohol> listAlcohols = alcoholService.listAll();
       	List<Category> listCategories = categoryService.listAll();
       	List<Subcategory> listSubcategories = subcategoryService.listAll();
+
+
+      	//model.addAttribute("listProcesses", recipe.getProcess());
 
       	model.addAttribute("recipe", recipe);
       	model.addAttribute("process", process);
@@ -147,6 +144,10 @@ public class RecipeController {
     	Recipe recipe = recipeService.get(id);
         model.addAttribute("recipe", recipe);
 
+        //手順IDのレシピIDに紐づけて手順情報を取得{
+          List<Process> listProcesses = processService.listAll();
+          model.addAttribute("listProcesses", recipe.getProcess());
+
       //カテゴリー＋サブカテゴリー＋アルコール情報も取得
       	List<Alcohol> listAlcohols = alcoholService.listAll();
       	List<Category> listCategories = categoryService.listAll();
@@ -157,6 +158,37 @@ public class RecipeController {
       	model.addAttribute("listSubcategories", listSubcategories);
         return "recipes/recipe_edit";
     }
+
+
+    /**
+     * 手順編集画面表示
+     *
+     * @param id レシピID
+     * @param model
+     * @return レシピ手順編集画面
+     */
+    @GetMapping("/editpro/{id}")
+    public String editProcess(@PathVariable(name = "id") Long id, Model model)
+    {
+        // レシピIDに紐づくブランド情報取得
+    	Recipe recipe = recipeService.get(id);
+        model.addAttribute("recipe", recipe);
+
+      //カテゴリー＋サブカテゴリー＋アルコール情報も取得
+      	List<Alcohol> listAlcohols = alcoholService.listAll();
+      	List<Category> listCategories = categoryService.listAll();
+      	List<Subcategory> listSubcategories = subcategoryService.listAll();
+
+      	model.addAttribute("listAlcohols", listAlcohols);
+      	model.addAttribute("listCategories", listCategories);
+      	model.addAttribute("listSubcategories", listSubcategories);
+
+      //手順IDのレシピIDに紐づけて手順情報を取得{
+      	List<Process> listProcesses = processService.listAll();
+      	model.addAttribute("listProcesses", recipe.getProcess());
+        return "recipes/recipe_process_edit";
+    }
+
 
 
 	/**
@@ -191,6 +223,39 @@ public class RecipeController {
 		ra.addFlashAttribute("success_message", "削除に成功しました");
 		return "redirect:/recipes";
 
+	}
+
+	/**
+     * 手順編集機能処理
+     *
+     * @param recipe レシピ情報
+     * @param model
+     * @return レシピ詳細画面
+     */
+	@PostMapping("/savepro")
+	public String saveProcess(Process process , RedirectAttributes ra)
+	{
+		//手順情報の登録
+		processService.save(process);
+		ra.addFlashAttribute("success_message", "登録に成功しました");
+		return "redirect:/recipes";
+	}
+
+	/**
+     * 手順削除処理
+     *
+     * @param recipe レシピ情報
+     * @param model
+     * @return レシピ詳細画面
+     */
+	@GetMapping("deletepro/{id}")
+	public String deleteProcess(@PathVariable(name = "id") Long id , Model model, RedirectAttributes ra)
+	{
+		//手順情報削除
+		processService.delete(id);
+		//削除成功メッセージが表示
+		ra.addFlashAttribute("success_message", "削除に成功しました");
+		return "redirect:/recipes";
 
 	}
 

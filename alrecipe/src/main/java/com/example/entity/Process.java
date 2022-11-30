@@ -35,12 +35,13 @@ public class Process {
 	@Column(name = "PROCESS")
     private String process;
 
+	@Column(name = "RECIPESORT_ID")
+    private Long recipesort_id;
+
 	@ManyToOne
     @JoinColumn(name = "RECIPE_ID")
     private Recipe recipe;
 
-	@Column(name = "RECIPESORT_ID")
-    private Long recipesort_id;
 
 	public Long getId() {
 		return id;

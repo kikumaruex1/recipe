@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}"
+>
 <head>
-<meta charset="UTF-8">
-<title>カテゴリー手順の詳細</title>
+  <title>レシピ編集(手順)</title>
+  <link />
 </head>
 <body>
+  <div class="pcoded-content">
+    <!-- Page-header start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="mt-2">レシピ編集(手順)</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page-header end -->
+    <div class="pcoded-inner-content">
+      <!-- Main-body start -->
+      <div class="main-body">
+        <div class="page-wrapper">
+          <!-- Page body start -->
+          <div class="page-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <!-- Basic Form Inputs card start -->
+                <div class="card">
+                  <div class="card-header">
+                      <h4>手順編集</h4>
+                  </div>
+                  <div class="card-block">
 
+                  	<table class="table table-hover table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">手順</th>
+                            <th scope="col">詳細</th>
+                            <th scope="col" style="width: 5%"></th>
+                            <th scope="col" style="width: 5%"></th>
+                            <th scope="col" style="width: 5%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each ="process : ${listProcesses}">
+                            <td  scope="row" th:text ="${process.id}"></td>
+                            <td>
+
+                            </td>
+                            <td>
+                              <a class="btn btn-primary btn-sm m-1" th:href="@{/recipes/editpro/{id}(id=${process.id})}">詳細</a>
+                            </td>
+                            <td>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <!--
+                      <input th:field="*{id}">
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">レシピ名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="名前" th:field="*{process}">
+                        </div>
+                      </div>
+                      <div class="btn-toolbar">
+                        <div class="ml-2">
+                          <a class="btn btn-secondary waves-effect waves-light" th:href="@{/recipes}">戻る</a>
+                        </div>
+                        <div class="ml-auto mr-2">
+                          <button class="btn btn-primary waves-effect waves-light">編集</button>
+                        </div>
+                      </div>
+                       -->
+
+                  </div>
+                </div>
+                <!-- Basic Form Inputs card end -->
+              </div>
+            </div>
+          </div>
+          <!-- Page body end -->
+        </div>
+      </div>
+      <!-- Main-body end -->
+    </div>
+  </div>
 </body>
 </html>

@@ -1,10 +1,14 @@
 package com.example.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,6 +27,10 @@ public class Subcategory {
 
     @Column(name = "NAME")
     private String name;
+
+    @ManyToMany
+    private Set<Recipe> recipes = new HashSet<>();
+
 
     public Long getId() {
         return id;

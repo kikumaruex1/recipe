@@ -45,6 +45,16 @@ public class ProcessService {
     	processRepository.deleteById(id);
 	}
 
+    /**
+     * IDに紐づくレシピ情報取得処理
+     *
+     * @param id レシピID
+     * @return レシピ情報
+     */
+    public 	Process save(Process process) {
+    	return processRepository.save(process);
+	}
+
 //    /**
 //     * レシピIDにあった手順情報取得処理
 //     *
