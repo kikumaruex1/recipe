@@ -112,13 +112,13 @@
                           	</tr>
                         	</thead>
                         	<tbody>
-                          	<tr th:each ="process : ${listProcesses}">
-                            	<td  scope="row" th:text ="${process.id}"></td>
-                            	<!-- <td th:text ="${process.process}"></td> -->
-                            	<td>
-                            	<input type="text" class="form-control" placeholder="手順">
-                            	</td>
-                          	</tr>
+                          	<tr th:each ="processObj : ${listProcesses}">
+								<!-- <td  scope="row" th:text ="${process.id}"></td> -->
+								<td th:text ="${processObj.process}"></td>
+								<td>
+									<input type="text" class="form-control" placeholder="手順" th:value ="${processObj.process}">
+								</td>
+							</tr>
                         	</tbody>
                       	</table>
                       	</div>
